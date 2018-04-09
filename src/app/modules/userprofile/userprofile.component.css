@@ -1,0 +1,8 @@
+.profile-row .col-md-4 span { display: block; padding: 15px 10px; }
+.inline-input input { height: 40px; margin: 5px 0; padding: 0 10px; background: #f2f3f5; width: 100%; border: none; }
+.profile-row { border-bottom: 1px solid #f1f1f1; padding: 0; color: #868686; }
+.profile-row .col-md-8 span { line-height: 50px; padding: 15px 10px; }
+.action-btns button,.btn-add { height: 40px; width: 40px; margin: 5px 0; }
+.action-btns button i { font-size: 18px; color: lightgrey; }
+.action-btns button:hover i { color: grey; }
+.btn-add{ float: right; }

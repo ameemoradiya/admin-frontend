@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/map';
+
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
@@ -9,8 +10,9 @@ export class UserService {
   baseurl = 'http://localhost:8000/user';
   admbaseurl = 'http://localhost:8000/admin/user';
 
-  uData = { username: '', _id: '', token: '' };
-  private logindata = new BehaviorSubject(this.uData);
+  uData = { username: '', _id: '', token: '', uploadImgName: '' };
+  public username = new BehaviorSubject<string>('');
+  public logindata = new BehaviorSubject(this.uData);
   currentUser = this.logindata.asObservable();
 
   constructor(private httpClient: HttpClient) { }
@@ -38,9 +40,8 @@ export class UserService {
     };
     return this.httpClient.post(`${this.baseurl}/register`, userRegData);
   }
-
   /* get current userinfo */
-  getCurrentUser() {
+  getCurrentUser(): Observable<any> {
     return this.httpClient.post(`${this.baseurl}/getCurrentUser`, {}).map(response => {
       return response;
     });
@@ -54,7 +55,7 @@ export class UserService {
   }
 
   /* get one profile */
-  getUserInfoById(param) {
+  getUserInfoById(param): any {
     return this.httpClient.post(`${this.baseurl}/getById`, param).map(response => {
       return response;
     });
@@ -101,4 +102,13 @@ export class UserService {
       return response;
     });
   }
+
+  deleteImg(user): any {
+    console.log(user);
+
+    return this.httpClient.put(`http://localhost:8000/user/uploadImage/delete/${user._id}`, {}).map(response => {
+      return response;
+    });
+  }
+
 }

@@ -16,6 +16,12 @@
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right" *ngIf='data.username'>
+        <li class=dropdown *ngIf='data.uploadImgName'>
+          <img [src]='data.uploadImgName' type="fetch" class='headerpic'>
+        </li>
+        <!-- <li class=dropdown *ngIf='data.uploadImgName'>
+          <img src='http://localhost:8000/test-img.png' type="fetch" class='headerpic'>
+        </li> -->
         <li class="dropdown">
           <a [routerLink]="['profile',data._id]">{{data.username}}</a>
         </li>

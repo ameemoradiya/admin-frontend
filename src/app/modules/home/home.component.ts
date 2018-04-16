@@ -7,17 +7,18 @@ import { UserService } from '../../services/user/user.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  data = {
+  data: any = {
     username: '',
-    _id: ''
+    _id: '',
+    uploadImgName: ''
   };
 
   constructor(private userService: UserService) { }
 
   ngOnInit() {
-    this.userService.currentUser.subscribe((response) => {
-      this.data = response;
+    this.userService.getCurrentUser().subscribe(response => {
+      this.data._id = response._id;
+      this.data.username = response.username;
     });
-    this.userService.changeData(this.data);
   }
 }

@@ -49,7 +49,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
       dtTrigger: this.dtTrigger,
       userdetails: {
         _id: user._id, username: user.username, fullname: user.fullname, email: user.email, moreInfo: user.moreInfo,
-        city: user.city, company: user.company, address: user.address, phone: user.phone, status: user.status
+        city: user.city, company: user.company, zip: user.zip, address: user.address, phone: user.phone, status: user.status
       },
     };
     this.bsModalRef = this.modalService.show(UsermodalComponent, { initialState });

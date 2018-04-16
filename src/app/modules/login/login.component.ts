@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user/user.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { LocalstorageService } from '../../services/localstorage.service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private userService: UserService,
     private router: Router,
-    private toastrService: ToastrService) { }
+    private toastrService: ToastrService,
+  private localstorageService: LocalstorageService) { }
 
   ngOnInit() { }
 
@@ -27,8 +29,9 @@ export class LoginComponent implements OnInit {
     this.userService.logIn(userData).subscribe((response) => {
       res = response;
       if (res) {
-        localStorage.setItem('Authorization', res.token);
+        this.localstorageService.SetAuthorizationData(res.token);
         this.toastrService.success('Successfully!', 'Login!');
+        res.uploadImgName = `http://localhost:8000/profilePhotos/${res.uploadImgName}`;
         this.userService.changeData(res);
         this.router.navigate(['home']);
       }

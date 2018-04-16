@@ -13,6 +13,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { ToastrModule } from 'ngx-toastr';
 import { UiSwitchModule } from 'angular2-ui-switch';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
 
 // import components
 import { AppComponent } from './modules/Task/app.component';
@@ -30,6 +31,8 @@ import { UserprofileComponent } from './modules/userprofile/userprofile.componen
 import { TaskService } from './services/task/task.service';
 import { BookstoreService } from './services/bookstore/bookstore.service';
 import { UserService } from './services/user/user.service';
+import { LocalstorageService } from './services/localstorage.service';
+
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -54,7 +57,8 @@ const routes: Routes = [
     HomeComponent,
     UserprofileComponent,
     UsersComponent,
-    UsermodalComponent
+    UsermodalComponent,
+    FileSelectDirective
   ],
   imports: [
     BrowserModule,
@@ -77,7 +81,7 @@ const routes: Routes = [
       useClass: AuthService,
       multi: true
     },
-    TaskService, UserService, AuthService, BookstoreService
+    TaskService, UserService, AuthService, BookstoreService, LocalstorageService
 
   ],
   bootstrap: [HeaderComponent],

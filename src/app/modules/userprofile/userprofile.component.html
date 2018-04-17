@@ -265,14 +265,14 @@
         </div>
         <div class="col-md-8 col-sm-8 col-xs-7">
           <span *ngIf="!iPassword">
-            <a ngInit="iPassword = false;" (click)="iPassword = true">{{user.password_clear}}</a>
+            <a ngInit="iPassword = false;" (click)="iPassword = true">*********</a>
           </span>
           <button type="button" *ngIf="!iPassword && !user.password_clear" (click)="iPassword = true" class="btn-add">
             <i class="fa fa-plus" aria-hidden="true"></i>
           </button>
           <div class="inline-input" *ngIf="iPassword">
             <div class="col-sm-10">
-              <input type="text" name="password_clear" #password_clear="ngModel" [(ngModel)]="user.password_clear" placeholder="password">
+              <input type="password" name="password_clear" #password_clear="ngModel" [(ngModel)]="user.password_clear" placeholder="password">
             </div>
             <div class="col-sm-2 action-btns">
               <div class="row">

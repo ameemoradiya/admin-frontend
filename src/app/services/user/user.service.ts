@@ -7,8 +7,7 @@ import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class UserService {
-  baseurl = 'http://localhost:8000/user';
-  admbaseurl = 'http://localhost:8000/admin/user';
+  baseurl = 'http://localhost:8000';
 
   uData = { username: '', _id: '', token: '', uploadImgName: '' };
   public username = new BehaviorSubject<string>('');
@@ -23,7 +22,7 @@ export class UserService {
 
   // User Login
   logIn(user): Observable<any> {
-    return this.httpClient.post(`${this.baseurl}/logIn`, user).map(response => {
+    return this.httpClient.post(`${this.baseurl}/user/logIn`, user).map(response => {
       return response;
     });
   }
@@ -38,38 +37,38 @@ export class UserService {
       'gRecaptchaResponse': user.gRecaptchaResponse,
       'status': ustatus
     };
-    return this.httpClient.post(`${this.baseurl}/register`, userRegData);
+    return this.httpClient.post(`${this.baseurl}/user/register`, userRegData);
   }
   /* get current userinfo */
   getCurrentUser(): Observable<any> {
-    return this.httpClient.post(`${this.baseurl}/getCurrentUser`, {}).map(response => {
+    return this.httpClient.post(`${this.baseurl}/user/getCurrentUser`, {}).map(response => {
       return response;
     });
   }
 
   /* update one profile */
   updateUserInfo(param) {
-    return this.httpClient.put(`${this.baseurl}/update`, param).map(response => {
+    return this.httpClient.put(`${this.baseurl}/user/update`, param).map(response => {
       return response;
     });
   }
 
   /* get one profile */
   getUserInfoById(param): any {
-    return this.httpClient.post(`${this.baseurl}/getById`, param).map(response => {
+    return this.httpClient.post(`${this.baseurl}/user/getById`, param).map(response => {
       return response;
     });
   }
 
   /* get one profile */
   resetPassword(param) {
-    return this.httpClient.post(`${this.admbaseurl}/resetPassword`, param).map(response => {
+    return this.httpClient.post(`${this.baseurl}/admin/user/resetPassword`, param).map(response => {
       return response;
     });
   }
 
   updateOneAffiliate(param) {
-    return this.httpClient.put(`${this.admbaseurl}/update`, param).map(response => {
+    return this.httpClient.put(`${this.baseurl}/admin/user/update`, param).map(response => {
       return response;
     });
   }
@@ -92,23 +91,25 @@ export class UserService {
       'sortType': dataTablesParameters.order[0].dir,
       'search': search
     };
-    return this.httpClient.post(`${this.admbaseurl}/getAllForAffiliatesTable`, setdata).map(response => {
+    return this.httpClient.post(`${this.baseurl}/admin/user/getAllForAffiliatesTable`, setdata).map(response => {
       return response;
     });
   }
 
   deleteUser(user_id) {
-    return this.httpClient.delete(`${this.admbaseurl}/Delete/${user_id}`).map(response => {
+    return this.httpClient.delete(`${this.baseurl}/admin/user/Delete/${user_id}`).map(response => {
       return response;
     });
   }
 
   deleteImg(user): any {
-    console.log(user);
-
-    return this.httpClient.put(`http://localhost:8000/user/uploadImage/delete/${user._id}`, {}).map(response => {
+    return this.httpClient.put(`${this.baseurl}/user/uploadImage/delete/${user._id}`, {}).map(response => {
       return response;
     });
+  }
+
+  private handleError(error) {
+    console.log(error);
   }
 
 }

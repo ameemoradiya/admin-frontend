@@ -1,3 +1,6 @@
+a:hover, a:focus{
+  text-decoration: none;
+}
 .profile-row .col-md-4 span {
     display: block;
     padding: 15px 10px;

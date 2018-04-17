@@ -18,7 +18,6 @@ export class AuthService implements HttpInterceptor {
     });
     return next.handle(authReq)
       .catch((error) => {
-        console.log('error', error);
         return Observable.throw(error);
       });
   }

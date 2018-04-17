@@ -10,6 +10,7 @@ import { LocalstorageService } from '../../services/localstorage.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  baseurl = 'http://localhost:8000';
   forgot;
   user = {
     username: '',
@@ -31,7 +32,7 @@ export class LoginComponent implements OnInit {
       if (res) {
         this.localstorageService.SetAuthorizationData(res.token);
         this.toastrService.success('Successfully!', 'Login!');
-        res.uploadImgName = `http://localhost:8000/profilePhotos/${res.uploadImgName}`;
+        res.uploadImgName = `${this.baseurl}/profilePhotos/${res.uploadImgName}`;
         this.userService.changeData(res);
         this.router.navigate(['home']);
       }

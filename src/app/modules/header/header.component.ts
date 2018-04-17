@@ -10,6 +10,7 @@ import { LocalstorageService } from '../../services/localstorage.service';
 })
 
 export class HeaderComponent implements OnInit {
+  baseurl = 'http://localhost:8000';
   pic: any;
   data: any = { username: '', _id: '', uploadImgName: '' };
 
@@ -27,13 +28,12 @@ export class HeaderComponent implements OnInit {
         const data = { id: this.data._id };
         this.userService.getUserInfoById(data).subscribe((res) => {
           this.data = res;
-          this.data.uploadImgName = `http://localhost:8000/profilePhotos/${res.uploadImgName}`;
+          this.data.uploadImgName = `${this.baseurl}/profilePhotos/${res.uploadImgName}`;
           this.userService.changeData(this.data);
         });
         this.userService.currentUser.subscribe((response) => {
-          console.log(response);
-          if (response.uploadImgName === 'http://localhost:8000/profilePhotos/') {
-            response.uploadImgName = 'http://localhost:8000/profilePhotos/test-img.png';
+          if (response.uploadImgName === `${this.baseurl}/profilePhotos/`) {
+            response.uploadImgName = `${this.baseurl}/profilePhotos/test-img.png`;
           }
           this.data = response;
         });

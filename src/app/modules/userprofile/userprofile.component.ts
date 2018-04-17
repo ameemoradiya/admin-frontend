@@ -16,9 +16,9 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./userprofile.component.css'],
 })
 export class UserprofileComponent implements OnInit {
-
+  baseurl = 'http://localhost:8000';
   public uploader = new FileUploader({
-    url: 'http://localhost:8000/user/uploadImage/upload',
+    url: `${this.baseurl}/user/uploadImage/upload`,
     headers: [{ name: 'Authorization', value: this.localstorageService.GetValueFromLocalStorage() }]
   });
 
@@ -65,18 +65,19 @@ export class UserprofileComponent implements OnInit {
     this.userService.getUserInfoById(data).subscribe((res) => {
       this.user = res;
       if (!res.uploadImgName) {
-        this.user.uploadImgName = `http://localhost:8000/profilePhotos/test-img.png`;
+        this.user.uploadImgName = `${this.baseurl}/profilePhotos/test-img.png`;
       } else {
-        this.user.uploadImgName = `http://localhost:8000/profilePhotos/${res.uploadImgName}`;
+        this.user.uploadImgName = `${this.baseurl}/profilePhotos/${res.uploadImgName}`;
       }
     });
 
+    this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
     this.uploader.onBuildItemForm = (fileItem: any, form: any) => {
       form.append('uploadImgTitle', fileItem.file.name);
     };
-    this.uploader.onSuccessItem = (item: any, response: any, status: number, headers: any): void => {
+    this.uploader.onCompleteItem = (item: any, response: any, status: number, headers: any): void => {
       response = JSON.parse(response);
-      this.user.uploadImgName = `http://localhost:8000/profilePhotos/${response.uploadImgName}`;
+      this.user.uploadImgName = `${this.baseurl}/profilePhotos/${response.uploadImgName}`;
       this.userService.changeData(this.user);
       if (response) {
         this.user.uploadImgID = response.public_id;
@@ -120,7 +121,7 @@ export class UserprofileComponent implements OnInit {
   deleteProfile(data) {
     this.userService.deleteImg(data).subscribe((response) => {
       if (response) {
-        this.user.uploadImgName = `http://localhost:8000/profilePhotos/test-img.png`;
+        this.user.uploadImgName = `${this.baseurl}/profilePhotos/test-img.png`;
       }
     });
   }

@@ -44,7 +44,7 @@ export class UserprofileComponent implements OnInit {
     phone: Number,
     city: String,
     uploadImgName: '',
-    password_clear: String
+    passwordClear: String
   };
 
   constructor(private userService: UserService,
@@ -97,7 +97,7 @@ export class UserprofileComponent implements OnInit {
       company: this.user.company,
       address: this.user.address,
       city: this.user.city,
-      newPassword: this.user.password_clear
+      newPassword: this.user.passwordClear
     };
 
     this.userService.updateUserInfo(updateData).subscribe((response) => {

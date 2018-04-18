@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskService } from '../../../services/task/task.service';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 @Component({
   selector: 'app-taskmodal',
@@ -20,7 +21,7 @@ export class TaskmodalComponent implements OnInit {
     content: '',
     taskName: ''
   };
-  constructor(private taskSer: TaskService) { }
+  constructor(private taskSer: TaskService, public bsModalRef: BsModalRef) { }
 
   ngOnInit() {
     if (this.tasksdetails.id) {

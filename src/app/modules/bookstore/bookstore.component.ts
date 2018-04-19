@@ -91,7 +91,6 @@ export class BookstoreComponent implements OnInit, AfterViewInit {
 
   // Show Books
   show() {
-    
     this.rerender();
   }
 

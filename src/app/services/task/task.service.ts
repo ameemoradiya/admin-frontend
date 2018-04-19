@@ -7,7 +7,7 @@ import 'rxjs/add/operator/map';
 export class TaskService {
 
   constructor(private httpClient: HttpClient) { }
-  baseurl = 'http://localhost:8000/tasks';
+  baseurl = 'http://localhost:8000/task';
 
   getTodoList(dataTablesParameters, perpage, search: any): Observable<any> {
     let pagenumber, page, sortColumn, count = -1;

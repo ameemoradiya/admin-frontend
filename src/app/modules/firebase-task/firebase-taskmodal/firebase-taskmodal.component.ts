@@ -14,6 +14,8 @@ export class FirebaseTaskmodalComponent implements OnInit {
   list: any[] = [];
   tasksdetails;
   dtTrigger;
+  dtElement;
+  rerender;
 
   constructor(public bsModalRef: BsModalRef, private taskSer: FirebaseTaskService) { }
 
@@ -26,11 +28,13 @@ export class FirebaseTaskmodalComponent implements OnInit {
   }
 
   save() {
-    this.taskSer.createTask(this.tasks).subscribe(respons => {});
+    this.taskSer.createTask(this.tasks).subscribe();
+    this.rerender();
   }
 
   updateActive(taskdet) {
     this.taskSer.updateTask(this.tasks.key, { content: taskdet.content, clientname: taskdet.clientname }).subscribe();
+    this.rerender();
   }
 }
 

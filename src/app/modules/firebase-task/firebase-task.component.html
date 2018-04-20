@@ -11,7 +11,7 @@
   </thead>
   <tbody>
     <tr *ngFor="let task of tasks">
-      <td><span class='done' [class.checked]='task.done' (click)='toggleDone(task)'></span></td>
+      <td><span class='done' [class.checked]='task.done' (click)='toggleDone(task);'></span></td>
       <td>{{ task.content }}</td>
       <td>{{ task.clientname }}</td>
       <td>

@@ -29,6 +29,8 @@ export class FirebaseTaskComponent implements OnInit, AfterViewInit {
 
   openTaskModal(task) {
     const initialState = {
+      rerender: this.rerender,
+      dtElement: this.dtElement,
       dtTrigger: this.dtTrigger,
       tasksdetails: {
         key: task.key, content: task.content, clientname: task.clientname
@@ -40,27 +42,38 @@ export class FirebaseTaskComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 15,
+      pageLength: 5,
+      serverSide: true,
+      processing: true,
+      ajax: (dataTablesParameters: any, callback) => {
+        this.taskSer.getTaskList().
+          subscribe(respons => {
+            this.tasks = respons;
+            callback({
+              recordsTotal: respons.length,
+              recordsFiltered: respons.length,
+              data: []
+            });
+          });
+      },
       columns: [
         { orderable: false, searchable: false },
         { data: 'content', name: 'content' },
         { data: 'clientname', name: 'clientname' },
-        { orderable: false, searchable: false }],
+        { orderable: false, searchable: false }
+      ],
       retrieve: true
     };
-
-    this.taskSer.getTaskList().subscribe(respons => {
-      this.tasks = respons;
-      this.rerender();
-    });
   }
 
   deleteTask(key) {
     this.taskSer.deleteTask(key).subscribe();
+    this.rerender();
   }
 
   toggleDone(task): void {
     this.taskSer.toggleDone(task.key, { done: !task.done }).subscribe();
+    this.rerender();
   }
 
   ngAfterViewInit(): void {

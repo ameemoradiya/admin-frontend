@@ -72,7 +72,7 @@ export class FirebaseTaskComponent implements OnInit, AfterViewInit {
   }
 
   toggleDone(task): void {
-    this.taskSer.toggleDone(task.key, { done: !task.done }).subscribe();
+    this.taskSer.updateTask(task.key, { done: !task.done }).subscribe();
     this.rerender();
   }
 

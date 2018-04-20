@@ -38,15 +38,15 @@ export class TaskService {
   }
 
   deleteTodo(todo_id) {
-    return this.httpClient.delete(`${this.baseurl}/Delete/` + todo_id);
+    return this.httpClient.delete(`${this.baseurl}/Delete/${todo_id}`);
   }
 
   toggleDone(todo) {
-    return this.httpClient.put(`${this.baseurl}/Complete/` + todo._id, todo);
+    return this.httpClient.put(`${this.baseurl}/Complete/${todo._id}`, todo);
   }
 
   updateTodo(todo) {
-    return this.httpClient.put(`${this.baseurl}/Update/` + todo.id, todo);
+    return this.httpClient.put(`${this.baseurl}/Update/${todo.id}`, todo);
   }
 
   private handleError(error) {

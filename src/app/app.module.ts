@@ -14,9 +14,6 @@ import { ToastrModule } from 'ngx-toastr';
 import { UiSwitchModule } from 'angular2-ui-switch';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { FirebaseConfig } from '../environments/firebase.Config';
 
 // import components
 import { AppComponent } from './modules/Task/app.component';
@@ -80,9 +77,7 @@ const routes: Routes = [
     AngularFontAwesomeModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    UiSwitchModule,
-    AngularFireModule.initializeApp(FirebaseConfig),
-    AngularFireDatabaseModule,
+    UiSwitchModule
   ],
 
   providers: [

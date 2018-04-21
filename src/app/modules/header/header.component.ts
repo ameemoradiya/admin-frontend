@@ -14,24 +14,24 @@ export class HeaderComponent implements OnInit {
   pic: any;
   data: any = { username: '', _id: '', uploadImgName: '' };
 
-  constructor(private userService: UserService,
-    private router: Router,
-    public localStrgService: LocalstorageService) {
+  constructor(private userService: UserService, private router: Router, public localStrgService: LocalstorageService) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (localStorage.getItem('Authorization')) {
-      this.userService.getCurrentUser().subscribe(response => {
+      this.userService.getCurrentUser()
+      .subscribe(response => {
         this.data = response;
       });
       setTimeout(() => {
         const data = { id: this.data._id };
-        this.userService.getUserInfoById(data).subscribe((res) => {
+        this.userService.getUserInfoById(data)
+        .subscribe((res: any) => {
           this.data = res;
           this.data.uploadImgName = `${this.baseurl}/profilePhotos/${res.uploadImgName}`;
           this.userService.changeData(this.data);
         });
-        this.userService.currentUser.subscribe((response) => {
+        this.userService.currentUser.subscribe((response: any) => {
           if (response.uploadImgName === `${this.baseurl}/profilePhotos/`) {
             response.uploadImgName = `${this.baseurl}/profilePhotos/test-img.png`;
           }

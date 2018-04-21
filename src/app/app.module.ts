@@ -14,9 +14,6 @@ import { ToastrModule } from 'ngx-toastr';
 import { UiSwitchModule } from 'angular2-ui-switch';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { FirebaseConfig } from '../environments/firebase.Config';
 
 // import components
 import { AppComponent } from './modules/Task/app.component';
@@ -30,7 +27,9 @@ import { UsersComponent } from './modules/users/users.component';
 import { UsermodalComponent } from './modules/users/usermodal/usermodal.component';
 import { UserprofileComponent } from './modules/userprofile/userprofile.component';
 import { FirebaseTaskComponent } from './modules/firebase-task/firebase-task.component';
-import { FirebaseTaskmodalComponent } from './modules/firebase-task/firebase-taskmodal/firebase-taskmodal.component';
+import {
+  FirebaseTaskmodalComponent
+} from './modules/firebase-task/firebase-taskmodal/firebase-taskmodal.component';
 
 // import services
 import { TaskService } from './services/task/task.service';
@@ -80,9 +79,7 @@ const routes: Routes = [
     AngularFontAwesomeModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    UiSwitchModule,
-    AngularFireModule.initializeApp(FirebaseConfig),
-    AngularFireDatabaseModule,
+    UiSwitchModule
   ],
 
   providers: [
@@ -103,4 +100,3 @@ const routes: Routes = [
 })
 
 export class AppModule { }
-

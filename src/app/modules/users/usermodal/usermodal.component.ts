@@ -30,43 +30,46 @@ export class UsermodalComponent implements OnInit {
     status: Boolean
   };
 
-constructor(public bsModalRef: BsModalRef, private userSer: UserService, private toastrService: ToastrService) { }
+  constructor(
+    public bsModalRef: BsModalRef,
+    private userSer: UserService,
+    private toastrService: ToastrService) { }
 
-ngOnInit() {
-  this.user._id = this.userdetails._id;
-  this.user.fullname = this.userdetails.fullname;
-  this.user.username = this.userdetails.username;
-  this.user.email = this.userdetails.email;
-  this.user.company = this.userdetails.company;
-  this.user.zip = this.userdetails.zip;
-  this.user.city = this.userdetails.city;
-  this.user.address = this.userdetails.address;
-  this.user.country = this.userdetails.country;
-  this.user.moreInfo = this.userdetails.moreInfo;
-  this.user.phone = this.userdetails.phone;
-  this.user.status = this.userdetails.status;
+  ngOnInit(): void {
+    this.user._id = this.userdetails._id;
+    this.user.fullname = this.userdetails.fullname;
+    this.user.username = this.userdetails.username;
+    this.user.email = this.userdetails.email;
+    this.user.company = this.userdetails.company;
+    this.user.zip = this.userdetails.zip;
+    this.user.city = this.userdetails.city;
+    this.user.address = this.userdetails.address;
+    this.user.country = this.userdetails.country;
+    this.user.moreInfo = this.userdetails.moreInfo;
+    this.user.phone = this.userdetails.phone;
+    this.user.status = this.userdetails.status;
+  }
+
+  update(): void {
+    const updateData = {
+      _id: this.user._id,
+      fullname: this.user.fullname,
+      username: this.user.username,
+      company: this.user.company,
+      address: this.user.address,
+      city: this.user.city,
+      zip: this.user.zip,
+      country: this.user.country,
+      moreInfo: this.user.moreInfo,
+      phone: this.user.phone,
+      email: this.user.email,
+      status: this.user.status
+    };
+
+    this.userSer.updateOneAffiliate(updateData)
+      .subscribe(result => {
+        this.toastrService.success('User Details updated!');
+        this.rerender();
+      });
+  }
 }
-
-update() {
-  const updateData = {
-    _id: this.user._id,
-    fullname: this.user.fullname,
-    username: this.user.username,
-    company: this.user.company,
-    address: this.user.address,
-    city: this.user.city,
-    zip: this.user.zip,
-    country: this.user.country,
-    moreInfo: this.user.moreInfo,
-    phone: this.user.phone,
-    email: this.user.email,
-    status: this.user.status
-  };
-
-  this.userSer.updateOneAffiliate(updateData).subscribe(result => {
-    this.toastrService.success('User Details updated!');
-    this.rerender();
-  });
-}
-}
-

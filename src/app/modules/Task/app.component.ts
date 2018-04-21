@@ -7,7 +7,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs/Subject';
 
 class DataTablesResponse {
-  data: any[];
+  data: Array<any>;
   draw: number;
   recordsFiltered: number;
   recordsTotal: number;
@@ -29,27 +29,28 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   constructor(private taskSer: TaskService, private modalService: BsModalService) { }
 
-  openTaskModal(task) {
+  openTaskModal(task): void {
     const initialState = {
       rerender: this.rerender,
       dtElement: this.dtElement,
       dtTrigger: this.dtTrigger,
       tasksdetails: {
         id: task._id, isComplete: task.isComplete, taskName: task.taskName, content: task.content
-      },
+      }
     };
     this.bsModalRef = this.modalService.show(TaskmodalComponent, { initialState });
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 5,
       serverSide: true,
       processing: true,
       ajax: (dataTablesParameters: any, callback) => {
-        this.taskSer.getTodoList(dataTablesParameters, dataTablesParameters.length, dataTablesParameters.search.value).
-          subscribe(respons => {
+        this.taskSer.getTodoList(
+          dataTablesParameters, dataTablesParameters.length, dataTablesParameters.search.value)
+          .subscribe(respons => {
             this.tasks = respons.data;
             callback({
               recordsTotal: respons.recordsTotal,
@@ -67,15 +68,17 @@ export class AppComponent implements OnInit, AfterViewInit {
     };
   }
 
-  deleteTask(task) {
-    this.taskSer.deleteTodo(task._id).subscribe((data) => {
+  deleteTask(task): void {
+    this.taskSer.deleteTodo(task._id)
+    .subscribe((data: any) => {
       this.rerender();
     });
   }
 
   toggleDone(task): void {
     task.isComplete = !task.isComplete;
-    this.taskSer.toggleDone(task).subscribe((data) => {
+    this.taskSer.toggleDone(task)
+    .subscribe((data: any) => {
       this.rerender();
     });
 

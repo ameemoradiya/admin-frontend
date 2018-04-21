@@ -18,16 +18,16 @@ export class LoginComponent implements OnInit {
   };
   iuser = { usermail: '' };
 
-  constructor(private userService: UserService,
-    private router: Router,
-    private toastrService: ToastrService,
-  private localstorageService: LocalstorageService) { }
+  constructor(private userService: UserService, private router: Router,
+    private toastrService: ToastrService, private localstorageService: LocalstorageService
+  ) { }
 
-  ngOnInit() { }
+  ngOnInit(): void { }
 
-  login(userData) {
+  login(userData): void {
     let res;
-    this.userService.logIn(userData).subscribe((response) => {
+    this.userService.logIn(userData)
+    .subscribe((response: any) => {
       res = response;
       if (res) {
         this.localstorageService.SetAuthorizationData(res.token);
@@ -44,8 +44,9 @@ export class LoginComponent implements OnInit {
     }, 500);
   }
 
-  forgotPass(userData) {
-    this.userService.resetPassword(userData).subscribe((response) => {});
+  forgotPass(userData): void {
+    this.userService.resetPassword(userData)
+    .subscribe((response: any) => {});
   }
 
 }

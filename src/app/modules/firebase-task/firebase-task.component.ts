@@ -15,11 +15,9 @@ import { DataTableDirective } from 'angular-datatables';
 })
 
 export class FirebaseTaskComponent implements OnInit, AfterViewInit {
-
-
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
-  @Input() tasks: Task[];
+  @Input() tasks: Task;
 
   bsModalRef: BsModalRef;
   dtOptions: DataTables.Settings = {};
@@ -27,14 +25,14 @@ export class FirebaseTaskComponent implements OnInit, AfterViewInit {
 
   constructor(private taskSer: FirebaseTaskService, private modalService: BsModalService) { }
 
-  openTaskModal(task) {
+  openTaskModal(task): void {
     const initialState = {
       rerender: this.rerender,
       dtElement: this.dtElement,
       dtTrigger: this.dtTrigger,
       tasksdetails: {
         key: task.key, content: task.content, clientname: task.clientname
-      },
+      }
     };
     this.bsModalRef = this.modalService.show(FirebaseTaskmodalComponent, { initialState });
   }
@@ -46,8 +44,8 @@ export class FirebaseTaskComponent implements OnInit, AfterViewInit {
       serverSide: true,
       processing: true,
       ajax: (dataTablesParameters: any, callback) => {
-        this.taskSer.getTaskList().
-          subscribe(respons => {
+        this.taskSer.getTaskList()
+        .subscribe(respons => {
             this.tasks = respons;
             callback({
               recordsTotal: respons.length,
@@ -66,13 +64,15 @@ export class FirebaseTaskComponent implements OnInit, AfterViewInit {
     };
   }
 
-  deleteTask(key) {
-    this.taskSer.deleteTask(key).subscribe();
+  deleteTask(key): void {
+    this.taskSer.deleteTask(key)
+    .subscribe();
     this.rerender();
   }
 
   toggleDone(task): void {
-    this.taskSer.toggleDone(task.key, { done: !task.done }).subscribe();
+    this.taskSer.toggleDone(task.key, { done: !task.done })
+    .subscribe();
     this.rerender();
   }
 
@@ -89,4 +89,3 @@ export class FirebaseTaskComponent implements OnInit, AfterViewInit {
     });
   }
 }
-

@@ -7,7 +7,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs/Subject';
 
 class DataTablesResponse {
-  data: any[];
+  data: Array<any>;
   draw: number;
   recordsFiltered: number;
   recordsTotal: number;
@@ -30,11 +30,12 @@ export class UsersComponent implements OnInit, AfterViewInit {
   constructor(private modalService: BsModalService, private userService: UserService) { }
 
   // Open modal for delete confirmation
-  openModal(template: TemplateRef<any>) {
+  openModal(template: TemplateRef<any>): void {
     this.bsModalRef = this.modalService.show(template, { class: 'modal-sm modal-delete' });
   }
   confirm(id): void {
-    this.userService.deleteUser(id).subscribe();
+    this.userService.deleteUser(id)
+    .subscribe();
     this.bsModalRef.hide();
     this.rerender();
   }
@@ -42,15 +43,24 @@ export class UsersComponent implements OnInit, AfterViewInit {
     this.bsModalRef.hide();
   }
 
-  openTaskModal(user) {
+  openTaskModal(user): void {
     const initialState = {
       rerender: this.rerender,
       dtElement: this.dtElement,
       dtTrigger: this.dtTrigger,
       userdetails: {
-        _id: user._id, username: user.username, fullname: user.fullname, email: user.email, moreInfo: user.moreInfo,
-        city: user.city, company: user.company, zip: user.zip, address: user.address, phone: user.phone, status: user.status
-      },
+        _id: user._id,
+        username: user.username,
+        fullname: user.fullname,
+        email: user.email,
+        moreInfo: user.moreInfo,
+        city: user.city,
+        company: user.company,
+        zip: user.zip,
+        address: user.address,
+        phone: user.phone,
+        status: user.status
+      }
     };
     this.bsModalRef = this.modalService.show(UsermodalComponent, { initialState });
   }
@@ -62,8 +72,9 @@ export class UsersComponent implements OnInit, AfterViewInit {
       serverSide: true,
       processing: true,
       ajax: (dataTablesParameters: any, callback) => {
-        this.userService.getAllForAffiliatesTable(dataTablesParameters, dataTablesParameters.length, dataTablesParameters.search.value).
-          subscribe(respons => {
+        this.userService.getAllForAffiliatesTable(
+          dataTablesParameters, dataTablesParameters.length, dataTablesParameters.search.value)
+          .subscribe(respons => {
             this.users = respons.data;
             callback({
               recordsTotal: respons.recordsTotal,
@@ -83,7 +94,8 @@ export class UsersComponent implements OnInit, AfterViewInit {
   }
 
   deleteUser(id): void {
-    this.userService.deleteUser(id).subscribe();
+    this.userService.deleteUser(id)
+    .subscribe();
   }
 
   ngAfterViewInit(): void {

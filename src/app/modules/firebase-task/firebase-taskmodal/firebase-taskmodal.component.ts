@@ -11,7 +11,7 @@ import { FirebaseTaskService } from '../../../services/firebaseTask/firebase-tas
 export class FirebaseTaskmodalComponent implements OnInit {
   title: string;
   tasks: Task = new Task();
-  list: any[] = [];
+  list: Array<any> = [];
   tasksdetails;
   dtTrigger;
   dtElement;
@@ -19,7 +19,7 @@ export class FirebaseTaskmodalComponent implements OnInit {
 
   constructor(public bsModalRef: BsModalRef, private taskSer: FirebaseTaskService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (this.tasksdetails.key) {
       this.tasks.key = this.tasksdetails.key;
       this.tasks.content = this.tasksdetails.content;
@@ -27,14 +27,18 @@ export class FirebaseTaskmodalComponent implements OnInit {
     }
   }
 
-  save() {
-    this.taskSer.createTask(this.tasks).subscribe();
+  save(): void {
+    this.taskSer.createTask(this.tasks)
+    .subscribe();
     this.rerender();
   }
 
-  updateActive(taskdet) {
-    this.taskSer.updateTask(this.tasks.key, { content: taskdet.content, clientname: taskdet.clientname }).subscribe();
+  updateActive(taskdet): void {
+    this.taskSer.updateTask(this.tasks.key, {
+      content: taskdet.content,
+      clientname: taskdet.clientname
+    })
+    .subscribe();
     this.rerender();
   }
 }
-

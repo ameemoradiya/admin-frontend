@@ -9,7 +9,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 })
 export class TaskmodalComponent implements OnInit {
   title: string;
-  list: any[] = [];
+  list: Array<any> = [];
   tasksdetails;
   dtTrigger;
   dtElement;
@@ -23,7 +23,7 @@ export class TaskmodalComponent implements OnInit {
   };
   constructor(private taskSer: TaskService, public bsModalRef: BsModalRef) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (this.tasksdetails.id) {
       this.update = true;
       this.task.id = this.tasksdetails.id;
@@ -33,14 +33,16 @@ export class TaskmodalComponent implements OnInit {
     }
   }
 
-  save(task) {
-    this.taskSer.addTodo(task).subscribe();
+  save(task): void {
+    this.taskSer.addTodo(task)
+    .subscribe();
     this.task.content = '';
     this.rerender();
   }
 
   updateActive(taskdet): void {
-    this.taskSer.updateTodo(taskdet).subscribe(data => {
+    this.taskSer.updateTodo(taskdet)
+    .subscribe(data => {
       this.rerender();
     });
 

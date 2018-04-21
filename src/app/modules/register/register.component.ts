@@ -18,19 +18,22 @@ export class RegisterComponent implements OnInit {
     gRecaptchaResponse: ''
   };
 
-  constructor(private userService: UserService, private router: Router, private toastrService: ToastrService) { }
+  constructor(
+    private userService: UserService, private router: Router, private toastrService: ToastrService
+  ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
-  register(userinfo) {
-    this.userService.register(userinfo, this.user.status).subscribe((response) => {
+  register(userinfo): void {
+    this.userService.register(userinfo, this.user.status)
+    .subscribe((response: any) => {
       this.toastrService.success('Successfully!', 'Register!');
       this.router.navigate(['login']);
     });
   }
 
-  resolved(captchaResponse: string) {
+  resolved(captchaResponse: string): void {
     this.user.gRecaptchaResponse = captchaResponse;
   }
 

@@ -10,6 +10,7 @@ describe('FirebaseTaskService', () => {
   });
 
   it('should be created', inject([FirebaseTaskService], (service: FirebaseTaskService) => {
-    expect(service).toBeTruthy();
+    expect(service)
+    .toBeTruthy();
   }));
 });

@@ -8,12 +8,10 @@ import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient } from '@angular/common/http';
 
-
-
 @Component({
   selector: 'app-userprofile',
   templateUrl: './userprofile.component.html',
-  styleUrls: ['./userprofile.component.css'],
+  styleUrls: ['./userprofile.component.css']
 })
 export class UserprofileComponent implements OnInit {
   baseurl = 'http://localhost:8000';
@@ -55,27 +53,30 @@ export class UserprofileComponent implements OnInit {
 
     // read the route parameter in constructor
     const self = this;
-    ac.params.forEach(function (param: any) {
+    ac.params.forEach((param: any) => {
       self.user._id = param['id'];
     });
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     const data = { id: this.user._id };
-    this.userService.getUserInfoById(data).subscribe((res) => {
-      this.user = res;
-      if (!res.uploadImgName) {
-        this.user.uploadImgName = `${this.baseurl}/profilePhotos/test-img.png`;
-      } else {
-        this.user.uploadImgName = `${this.baseurl}/profilePhotos/${res.uploadImgName}`;
-      }
-    });
+    this.userService.getUserInfoById(data)
+      .subscribe((res: any) => {
+        this.user = res;
+        if (!res.uploadImgName) {
+          this.user.uploadImgName = `${this.baseurl}/profilePhotos/test-img.png`;
+        } else {
+          this.user.uploadImgName = `${this.baseurl}/profilePhotos/${res.uploadImgName}`;
+        }
+      });
 
-    this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
+    this.uploader.onAfterAddingFile = (file: any) => { file.withCredentials = false; };
     this.uploader.onBuildItemForm = (fileItem: any, form: any) => {
       form.append('uploadImgTitle', fileItem.file.name);
     };
-    this.uploader.onCompleteItem = (item: any, response: any, status: number, headers: any): void => {
+    this.uploader.onCompleteItem = (
+      item: any, response: any, status: number, headers: any
+    ): void => {
       response = JSON.parse(response);
       this.user.uploadImgName = `${this.baseurl}/profilePhotos/${response.uploadImgName}`;
       this.userService.changeData(this.user);
@@ -85,7 +86,7 @@ export class UserprofileComponent implements OnInit {
     };
   }
 
-  update = function () {
+  update(): void {
     const updateData = {
       _id: this.user._id,
       fullname: this.user.fullname,
@@ -100,7 +101,8 @@ export class UserprofileComponent implements OnInit {
       newPassword: this.user.passwordClear
     };
 
-    this.userService.updateUserInfo(updateData).subscribe((response) => {
+    this.userService.updateUserInfo(updateData)
+    .subscribe((response: any) => {
       if (response) {
         this.toast.success('Successfully!', 'Update!');
         this.iFullname = false;
@@ -115,17 +117,14 @@ export class UserprofileComponent implements OnInit {
         this.iPassword = false;
       }
     });
+  }
 
-  };
-
-  deleteProfile(data) {
-    this.userService.deleteImg(data).subscribe((response) => {
+  deleteProfile(data): void {
+    this.userService.deleteImg(data)
+    .subscribe((response: any) => {
       if (response) {
         this.user.uploadImgName = `${this.baseurl}/profilePhotos/test-img.png`;
       }
     });
   }
-
-  onSubmit() { }
-
 }

@@ -4,7 +4,7 @@ import { Subject } from 'rxjs/Subject';
 import { DataTableDirective } from 'angular-datatables';
 
 class DataTablesResponse {
-  data: any[];
+  data: Array<any>;
   draw: number;
   recordsFiltered: number;
   recordsTotal: number;
@@ -41,15 +41,16 @@ export class BookstoreComponent implements OnInit, AfterViewInit {
     this.getBookData();
   }
 
-  getBookData() {
+  getBookData(): void {
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 5,
       serverSide: true,
       processing: true,
       ajax: (dataTablesParameters: any, callback) => {
-        this.bookService.getBookList(dataTablesParameters, dataTablesParameters.length, dataTablesParameters.search.value).
-          subscribe(respons => {
+        this.bookService.getBookList(
+          dataTablesParameters, dataTablesParameters.length, dataTablesParameters.search.value)
+          .subscribe(respons => {
             this.books = respons.data;
             this.book.bookId = respons.recordsTotal + 1;
             callback({
@@ -73,7 +74,7 @@ export class BookstoreComponent implements OnInit, AfterViewInit {
     };
   }
 
-  clearField() {
+  clearField(): void {
     this.book.bname = '';
     this.book.bdescription = '';
     this.book.bpagenum = '';
@@ -83,127 +84,146 @@ export class BookstoreComponent implements OnInit, AfterViewInit {
     this.book.breleasyear = '';
   }
 
-  addBook(book) {
-    this.bookService.addBook(book).subscribe();
+  addBook(book): void {
+    this.bookService.addBook(book)
+    .subscribe();
     this.clearField();
     this.rerender();
   }
 
   // Show Books
-  show() {
+  show(): void {
     this.rerender();
   }
 
   // Show Book by Id
-  showbyid(bookid) {
-    this.bookService.getBookById(bookid).subscribe(response => {
+  showbyid(bookid): void {
+    this.bookService.getBookById(bookid)
+    .subscribe(response => {
       this.books = response.data;
     });
   }
 
   // Show Book by Name
-  showbybookName(bookname) {
-    this.bookService.getBookByName(bookname).subscribe(response => {
+  showbybookName(bookname): void {
+    this.bookService.getBookByName(bookname)
+    .subscribe(response => {
       this.books = response.data;
     });
   }
 
   // Show Book by more than 100 page
-  showbymorethan100(bpageno) {
-    this.bookService.getBookByPage(bpageno).subscribe(response => {
+  showbymorethan100(bpageno): void {
+    this.bookService.getBookByPage(bpageno)
+    .subscribe(response => {
       this.books = response.data;
     });
   }
 
   // Show Book by more than 25 and less than 90 page
-  showbypagefilter(gpage, lpage, notequal) {
-    this.bookService.getBookByPagefilter(gpage, lpage, notequal).subscribe(response => {
+  showbypagefilter(gpage, lpage, notequal): void {
+    this.bookService.getBookByPagefilter(gpage, lpage, notequal)
+    .subscribe(response => {
       this.books = response.data;
     });
   }
 
   // Show Book by 0 page
-  showbyzeropg() {
-    this.bookService.getBookByzeroPage(0).subscribe(response => {
+  showbyzeropg(): void {
+    this.bookService.getBookByzeroPage(0)
+    .subscribe(response => {
       this.books = response.data;
     });
   }
 
   // Show Book by release year 2015
-  showby2015(year) {
-    this.bookService.getBookByYear(year).subscribe(response => {
+  showby2015(year): void {
+    this.bookService.getBookByYear(year)
+    .subscribe(response => {
       this.books = response.data;
     });
   }
 
   // Show Book by release year 2001 and 2015
-  showbyyear(year1, year15) {
-    this.bookService.getBookByYearfilter(year1, year15).subscribe(response => {
+  showbyyear(year1, year15): void {
+    this.bookService.getBookByYearfilter(year1, year15)
+    .subscribe(response => {
       this.books = response.data;
     });
   }
 
   // Show Book by highest price
-  showhighestPrice() {
-    this.bookService.getBookbyhighPrice().subscribe(response => {
+  showhighestPrice(): void {
+    this.bookService.getBookbyhighPrice()
+    .subscribe(response => {
       this.books = response.data;
     });
   }
 
   // Show Book have language
-  showbooklang() {
-    this.bookService.showbooklang().subscribe(response => {
+  showbooklang(): void {
+    this.bookService.showbooklang()
+    .subscribe(response => {
       this.books = response.data;
     });
   }
 
   // Show by highest price & lowest pages
-  highPriLowPgs() {
-    this.bookService.getByFilter().subscribe(response => {
+  highPriLowPgs(): void {
+    this.bookService.getByFilter()
+    .subscribe(response => {
       this.books = response;
     });
   }
 
   // Delete Book by Id
-  deletebyid(bookid) {
-    this.bookService.deleteBookbyid(bookid).subscribe((data) => {});
+  deletebyid(bookid): void {
+    this.bookService.deleteBookbyid(bookid)
+    .subscribe(() => {});
   }
 
   // Delete Book by Name
-  deletebyname(bookname) {
-    this.bookService.deleteBookbyName(bookname).subscribe((data) => {
+  deletebyname(bookname): void {
+    this.bookService.deleteBookbyName(bookname)
+    .subscribe(() => {
       this.rerender();
     });
   }
 
   // Delete Book by Author
-  deletebyauthor(bookauthor) {
-    this.bookService.deleteBookbyAuthor(bookauthor).subscribe();
+  deletebyauthor(bookauthor): void {
+    this.bookService.deleteBookbyAuthor(bookauthor)
+    .subscribe();
   }
 
   // Delete Book by Author
-  deletebyauthDesc(auth, desc) {
-    this.bookService.deleteBookbyAuthDesc(auth, desc).subscribe();
+  deletebyauthDesc(auth, desc): void {
+    this.bookService.deleteBookbyAuthDesc(auth, desc)
+    .subscribe();
   }
 
   // Delete Book by Name and Category
-  deleteBookbyNameCate(name, cate) {
-    this.bookService.deleteBookbyNameCate(name, cate).subscribe();
+  deleteBookbyNameCate(name, cate): void {
+    this.bookService.deleteBookbyNameCate(name, cate)
+    .subscribe();
   }
 
   // Update Book by Id
-  updatebyid(bookdetails) {
-    this.bookService.updateBookbyid(bookdetails).subscribe();
+  updatebyid(bookdetails): void {
+    this.bookService.updateBookbyid(bookdetails)
+    .subscribe();
   }
 
   // Update Book by Name
-  updatebyBookname(bookdetails) {
-    this.bookService.updateBookbyname(bookdetails).subscribe();
+  updatebyBookname(bookdetails): void {
+    this.bookService.updateBookbyname(bookdetails)
+    .subscribe();
   }
 
   // Update Book by Author and name
-  updatebyBookNameAuth(bookdetails) {
-    this.bookService.updateBookbyNameAuthor(bookdetails).subscribe();
+  updatebyBookNameAuth(bookdetails): void {
+    this.bookService.updateBookbyNameAuthor(bookdetails)
+    .subscribe();
   }
 
   ngAfterViewInit(): void {

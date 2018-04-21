@@ -27,7 +27,9 @@ import { UsersComponent } from './modules/users/users.component';
 import { UsermodalComponent } from './modules/users/usermodal/usermodal.component';
 import { UserprofileComponent } from './modules/userprofile/userprofile.component';
 import { FirebaseTaskComponent } from './modules/firebase-task/firebase-task.component';
-import { FirebaseTaskmodalComponent } from './modules/firebase-task/firebase-taskmodal/firebase-taskmodal.component';
+import {
+  FirebaseTaskmodalComponent
+} from './modules/firebase-task/firebase-taskmodal/firebase-taskmodal.component';
 
 // import services
 import { TaskService } from './services/task/task.service';
@@ -98,4 +100,3 @@ const routes: Routes = [
 })
 
 export class AppModule { }
-

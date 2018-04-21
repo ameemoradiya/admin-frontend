@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpHeaders, HttpResponse
+} from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { LocalstorageService } from '../localstorage.service';
 import 'rxjs/add/observable/throw';
@@ -14,10 +15,13 @@ export class AuthService implements HttpInterceptor {
     const token = this.localstorageService.GetValueFromLocalStorage() || '';
     // set hearder authentication
     const authReq = req.clone({
-      headers: req.headers.append('Content-Type', 'application/json').append('Authorization', token).append('Accept', 'multipart/form-data')
+      headers: req.headers.append('Content-Type', 'application/json')
+      .append('Authorization', token)
+      .append('Accept', 'multipart/form-data')
     });
+
     return next.handle(authReq)
-      .catch((error) => {
+      .catch((error: any) => {
         return Observable.throw(error);
       });
   }

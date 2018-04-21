@@ -2,10 +2,18 @@
   "rulesDirectory": [
     "node_modules/codelyzer"
   ],
+  "extends": ["angular-tslint-rules"],
   "rules": {
+    "align": [
+      false,
+      "parameters"
+  ],
+    "no-implicit-dependencies": [true, "dev"],
+    "prefer-conditional-expression": false,
     "arrow-return-shorthand": true,
     "callable-types": true,
     "class-name": true,
+    "ordered-imports": false,
     "comment-format": [
       true,
       "check-space"

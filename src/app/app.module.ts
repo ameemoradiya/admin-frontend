@@ -5,7 +5,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthService } from './services/auth/auth.service';
 import { FormsModule } from '@angular/forms';
-import { HttpModule, Http, XHRBackend, RequestOptions } from '@angular/http';
+import { Http, XHRBackend, RequestOptions } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 import { DataTablesModule } from 'angular-datatables';
 import { RecaptchaModule } from 'ng-recaptcha';
@@ -70,7 +70,6 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     HttpClientModule,
-    HttpModule,
     RecaptchaModule.forRoot(),
     FormsModule,
     DataTablesModule,

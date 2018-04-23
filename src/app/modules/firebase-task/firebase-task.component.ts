@@ -16,7 +16,6 @@ import { DataTableDirective } from 'angular-datatables';
 
 export class FirebaseTaskComponent implements OnInit, AfterViewInit {
 
-
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
   @Input() tasks: Task;
@@ -73,7 +72,8 @@ export class FirebaseTaskComponent implements OnInit, AfterViewInit {
   }
 
   toggleDone(task): void {
-    this.taskSer.updateTask(task.key, { done: !task.done }).subscribe();
+    this.taskSer.updateTask(task.key, { done: !task.done })
+    .subscribe();
     this.rerender();
   }
 
@@ -90,4 +90,3 @@ export class FirebaseTaskComponent implements OnInit, AfterViewInit {
     });
   }
 }
-
